@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import model.BasicStatsModel;
 import gui.view.MeanView;
+import gui.view.MedianView;
 import gui.view.View;
 
 
@@ -25,8 +26,8 @@ public class BasicStatsGUI implements View
     
     private static BasicStatsModel model = new BasicStatsModel();
     private JTextField jtfCount;
-    private JTextField jtfMedian;
 	MeanView meanComponent = new MeanView();
+	MedianView medianComponent = new MedianView();
     private JTextArea jtaNumbers;
     private JFrame jfMain = new JFrame(APP_TITLE);
 
@@ -40,14 +41,11 @@ public class BasicStatsGUI implements View
 	JPanel jpStats = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	jtfCount = new JTextField(5);
 	jtfCount.setEditable(false);
-	jtfMedian = new JTextField(5);
-	jtfMedian.setEditable(false);
-
 
 	jpStats.add(new JLabel("Numbers:"));
 	jpStats.add(jtfCount);
-	jpStats.add(new JLabel("Median:"));
-	jpStats.add(jtfMedian);
+	jpStats.add(medianComponent.getComponentLabel());
+	jpStats.add(medianComponent.getComponent());
 	jpStats.add(meanComponent.getComponentLabel());
 	jpStats.add(meanComponent.getComponent());
 	jfMain.getContentPane().add(jpStats, BorderLayout.CENTER);
@@ -79,10 +77,10 @@ public class BasicStatsGUI implements View
 		    
 		    Double num = Double.parseDouble(jtfNumber.getText());
 		    model.addNumber(num);
-
 		    update(model);
 		}
 	    });
+		
 	JPanel jpInput = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	jpInput.add(jtfNumber);
 	jpInput.add(jbAdd);
@@ -96,8 +94,8 @@ public class BasicStatsGUI implements View
 	if (model.getArrayDouble().length == 0) {
 	    jtaNumbers.setText("");
 	    jtfCount.setText("");
-	    jtfMedian.setText("");
 		meanComponent.resetComponent();
+		medianComponent.resetComponent();
 
 	}
 	else {
@@ -111,11 +109,9 @@ public class BasicStatsGUI implements View
 	    
 	    // Compute and set the mean
 		meanComponent.update(model);
-
 	    
-	    // Compute and set the median
-	    double median = BasicStats.median(model.getArrayDouble());
-	    jtfMedian.setText("" + median);	    
+	    // Compute and set the median 
+		medianComponent.update(model); 
 	}
     }
 
