@@ -69,4 +69,19 @@ public class BasicStats {
 
       return mode;
     }
+
+    /**
+     * Compute the max from an array of numbers.
+     */
+    public static double max(double ... numbers) {
+        double maxVal = numbers[0];
+        if (numbers == null || numbers.length == 0) {
+            throw new IllegalArgumentException("Numbers array is empty and cannot compute max");
+        }
+        for (double num : numbers) {
+          if(num>maxVal)
+            maxVal = num;
+        }
+        return maxVal;
+    }
 }

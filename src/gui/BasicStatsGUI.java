@@ -10,6 +10,7 @@ import gui.view.MeanView;
 import gui.view.MedianView;
 import gui.view.CountView;
 import gui.view.NumbersView;
+import gui.view.MaxView;
 import gui.view.View;
 
 
@@ -31,6 +32,7 @@ public class BasicStatsGUI implements View
 	MedianView medianComponent = new MedianView();
 	CountView countComponent = new CountView();
 	NumbersView numbersComponent = new NumbersView();
+	MaxView maxComponent = new MaxView();
     private JFrame jfMain = new JFrame(APP_TITLE);
 	JTextField jtfNumber = new JTextField(5);
 	JButton jbAdd = new JButton("Add number");
@@ -51,6 +53,8 @@ public class BasicStatsGUI implements View
 	jpStats.add(medianComponent.getComponent());
 	jpStats.add(meanComponent.getComponentLabel());
 	jpStats.add(meanComponent.getComponent());
+	jpStats.add(maxComponent.getComponentLabel());
+	jpStats.add(maxComponent.getComponent());
 	jfMain.getContentPane().add(jpStats, BorderLayout.CENTER);
 	
 	// TextArea that shows all the numbers
@@ -85,8 +89,8 @@ public class BasicStatsGUI implements View
 	jpInput.add(jbAdd);
 	jpInput.add(jbReset);
 	
-	
 	jfMain.getContentPane().add(jpInput, BorderLayout.NORTH);
+
     }
 
     public void update(BasicStatsModel model) {
@@ -95,7 +99,8 @@ public class BasicStatsGUI implements View
 		numbersComponent.resetComponent();
 		countComponent.resetComponent();
 		meanComponent.resetComponent();
-		medianComponent.resetComponent();		
+		medianComponent.resetComponent();
+		maxComponent.resetComponent();		
 
 	}
 	else {
@@ -110,6 +115,9 @@ public class BasicStatsGUI implements View
 	    
 	    // Compute and set the median 
 		medianComponent.update(model); 
+
+		// Compute and set the max 
+		maxComponent.update(model); 
 	}
     }
 
