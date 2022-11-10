@@ -32,6 +32,9 @@ public class BasicStatsGUI implements View
 	CountView countComponent = new CountView();
 	NumbersView numbersComponent = new NumbersView();
     private JFrame jfMain = new JFrame(APP_TITLE);
+	JTextField jtfNumber = new JTextField(5);
+	JButton jbAdd = new JButton("Add number");
+
 
     public BasicStatsGUI() {	
 	// Create the main frame of the application, and set size and position
@@ -67,8 +70,6 @@ public class BasicStatsGUI implements View
 		}
 	    });
 
-	JTextField jtfNumber = new JTextField(5);
-	JButton jbAdd = new JButton("Add number");
 
 	jbAdd.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -90,10 +91,11 @@ public class BasicStatsGUI implements View
 
     public void update(BasicStatsModel model) {
 	if (model.getArrayDouble().length == 0) {
+		jtfNumber.setText("");
 		numbersComponent.resetComponent();
 		countComponent.resetComponent();
 		meanComponent.resetComponent();
-		medianComponent.resetComponent();
+		medianComponent.resetComponent();		
 
 	}
 	else {
