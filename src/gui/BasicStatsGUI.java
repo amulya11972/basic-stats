@@ -9,6 +9,7 @@ import model.BasicStatsModel;
 import gui.view.MeanView;
 import gui.view.MedianView;
 import gui.view.CountView;
+import gui.view.NumbersView;
 import gui.view.View;
 
 
@@ -29,7 +30,7 @@ public class BasicStatsGUI implements View
 	MeanView meanComponent = new MeanView();
 	MedianView medianComponent = new MedianView();
 	CountView countComponent = new CountView();
-    private JTextArea jtaNumbers;
+	NumbersView numbersComponent = new NumbersView();
     private JFrame jfMain = new JFrame(APP_TITLE);
 
     public BasicStatsGUI() {	
@@ -50,9 +51,7 @@ public class BasicStatsGUI implements View
 	jfMain.getContentPane().add(jpStats, BorderLayout.CENTER);
 	
 	// TextArea that shows all the numbers
-	jtaNumbers = new JTextArea(10,50);
-	jtaNumbers.setEditable(false);
-	jfMain.getContentPane().add(jtaNumbers, BorderLayout.SOUTH);	
+	jfMain.getContentPane().add(numbersComponent.getComponent(), BorderLayout.SOUTH);	
 	
 
 	// Panel with a text field/button to enter numbers and a button to reset the application
@@ -67,8 +66,10 @@ public class BasicStatsGUI implements View
 		    update(model);
 		}
 	    });
+
 	JTextField jtfNumber = new JTextField(5);
 	JButton jbAdd = new JButton("Add number");
+
 	jbAdd.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    // Parse input and add number to the ArrayList
@@ -89,7 +90,7 @@ public class BasicStatsGUI implements View
 
     public void update(BasicStatsModel model) {
 	if (model.getArrayDouble().length == 0) {
-	    jtaNumbers.setText("");
+		numbersComponent.resetComponent();
 		countComponent.resetComponent();
 		meanComponent.resetComponent();
 		medianComponent.resetComponent();
@@ -97,8 +98,7 @@ public class BasicStatsGUI implements View
 	}
 	else {
 	    // Update the displayed list of numbers
-	    double num = model.getArrayDouble()[model.getArrayDouble().length - 1];
-	    jtaNumbers.append(num + ",");
+		numbersComponent.update(model);
 	    
 	    // Compute and set the count
 		countComponent.update(model);
