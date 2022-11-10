@@ -5,8 +5,8 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import model.BasicStatsModel;
+import gui.view.MeanView;
 import gui.view.View;
 
 
@@ -26,7 +26,7 @@ public class BasicStatsGUI implements View
     private static BasicStatsModel model = new BasicStatsModel();
     private JTextField jtfCount;
     private JTextField jtfMedian;
-    private JTextField jtfMean;
+	MeanView meanComponent = new MeanView();
     private JTextArea jtaNumbers;
     private JFrame jfMain = new JFrame(APP_TITLE);
 
@@ -42,14 +42,14 @@ public class BasicStatsGUI implements View
 	jtfCount.setEditable(false);
 	jtfMedian = new JTextField(5);
 	jtfMedian.setEditable(false);
-	jtfMean = new JTextField(5);
-	jtfMean.setEditable(false);
+
+
 	jpStats.add(new JLabel("Numbers:"));
 	jpStats.add(jtfCount);
 	jpStats.add(new JLabel("Median:"));
 	jpStats.add(jtfMedian);
-	jpStats.add(new JLabel("Mean:"));
-	jpStats.add(jtfMean);
+	jpStats.add(meanComponent.getComponentLabel());
+	jpStats.add(meanComponent.getComponent());
 	jfMain.getContentPane().add(jpStats, BorderLayout.CENTER);
 	
 	// TextArea that shows all the numbers
@@ -97,7 +97,8 @@ public class BasicStatsGUI implements View
 	    jtaNumbers.setText("");
 	    jtfCount.setText("");
 	    jtfMedian.setText("");
-	    jtfMean.setText("");
+		meanComponent.resetComponent();
+
 	}
 	else {
 	    // Update the displayed list of numbers
@@ -109,8 +110,8 @@ public class BasicStatsGUI implements View
 	    jtfCount.setText("" + count);
 	    
 	    // Compute and set the mean
-	    double mean = BasicStats.mean(model.getArrayDouble());
-	    jtfMean.setText("" + mean);
+		meanComponent.update(model);
+
 	    
 	    // Compute and set the median
 	    double median = BasicStats.median(model.getArrayDouble());
