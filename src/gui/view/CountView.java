@@ -28,6 +28,10 @@ public class CountView implements View {
             jtfCount.setText("");
         }
 
+        public String getValue(){
+            return jtfCount.getText();
+        }
+
         @Override
         public void update(BasicStatsModel model){
             int count = model.getArrayDouble().length;

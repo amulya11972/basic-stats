@@ -28,10 +28,15 @@ public class MeanView implements View {
             jtfMean.setText("");
         }
 
+        public String getValue(){
+            return jtfMean.getText();
+        }
+
         @Override
         public void update(BasicStatsModel model){
             double mean = BasicStats.mean(model.getArrayDouble());
             jtfMean.setText("" + mean);
         }
+
 
 }

@@ -28,6 +28,10 @@ public class MaxView implements View {
             jtfMax.setText("");
         }
 
+        public String getValue(){
+            return jtfMax.getText();
+        }
+
         @Override
         public void update(BasicStatsModel model){
             double max = BasicStats.max(model.getArrayDouble());

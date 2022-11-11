@@ -28,6 +28,10 @@ public class MedianView implements View {
             jtfMedian.setText("");
         }
 
+        public void getValue(){
+            jtfMedian.getText();
+        }
+
         @Override
         public void update(BasicStatsModel model){
             double median = BasicStats.median(model.getArrayDouble());

@@ -74,10 +74,11 @@ public class BasicStats {
      * Compute the max from an array of numbers.
      */
     public static double max(double ... numbers) {
-        double maxVal = numbers[0];
+
         if (numbers == null || numbers.length == 0) {
             throw new IllegalArgumentException("Numbers array is empty and cannot compute max");
         }
+        double maxVal = numbers[0];
         for (double num : numbers) {
           if(num>maxVal)
             maxVal = num;

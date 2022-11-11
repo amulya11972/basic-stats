@@ -1,10 +1,181 @@
+
+package gui;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 import gui.BasicStats;
+import gui.BasicStatsGUI;
+import model.BasicStatsModel;
+import gui.view.CountView;
+import gui.view.MeanView;
+import gui.view.MedianView;
+import gui.view.NumbersView;
+import gui.view.MaxView;
+
 
 public class BasicStatsTest {
     private static double EPS = 1e-9;
+
+    @Test
+    public void testInitialMeanView() {
+
+      //testing initial Mean View Values
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      MeanView meanComponent = new MeanView();
+
+      //checking access of mean textfield
+      assertNotNull("Can't access the Mean component", meanComponent.getComponent());
+
+      //Value in mean textfield should be empty
+      assertEquals("",meanComponent.getComponent().getText());
+
+    }
+
+    @Test
+    public void testInitialMedianView() {
+
+      //testing initial Median View Values
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      MedianView medianComponent = new MedianView();
+
+      //checking access of median textfield
+      assertNotNull("Can't access the Median component", medianComponent.getComponent());
+
+      //Value in median textfield should be empty
+      assertEquals("",medianComponent.getComponent().getText());
+
+    }
+
+    @Test
+    public void testInitialMaxView() {
+
+      //testing initial Max View Values
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      MaxView maxComponent = new MaxView();
+
+      //checking access of max textfield
+      assertNotNull("Can't access the Max component", maxComponent.getComponent());
+
+      //Value in max textfield should be empty
+      assertEquals("",maxComponent.getComponent().getText());
+
+    }
+
+    @Test
+    public void testInitialCountView() {
+
+      //testing initial Count View Values
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      CountView countComponent = new CountView();
+
+      //checking access of count textfield
+      assertNotNull("Can't access the Number count component", countComponent.getComponent());
+
+      //Value in count textfield should be empty
+      assertEquals("",countComponent.getComponent().getText());
+
+    }
+
+    @Test
+    public void testInitialNumbersView() {
+
+      //testing initial Count View Values
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      NumbersView numbersComponent = new NumbersView();
+
+      //checking access of count textfield
+      assertNotNull("Can't access the Numbers display component", numbersComponent.getComponent());
+
+      //Value in count textfield should be empty
+      assertEquals("",numbersComponent.getComponent().getText());
+
+    }
+
+    @Test
+    public void testAddNumberSuccessful() {
+
+      BasicStatsModel model = new BasicStatsModel();
+
+      //Adding the number 4
+      model.addNumber(4.0);
+      assertTrue(Arrays.equals(new double[] {4.0}, model.getArrayDouble()));
+
+      //Adding the number -3 
+      model.addNumber(-3.0);
+      assertTrue(Arrays.equals(new double[] {4.0, -3.0}, model.getArrayDouble()));
+
+      //Adding number 1234
+      model.addNumber(1234.0);
+      assertTrue(Arrays.equals(new double[] {4.0, -3.0, 1234.0}, model.getArrayDouble()));
+
+      //Adding number 0
+      model.addNumber(0.0);
+      assertTrue(Arrays.equals(new double[] {4.0, -3.0, 1234.0, 0.0}, model.getArrayDouble()));
+
+    } 
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddNumberFail() {
+      //If the Number being added is null
+      BasicStatsModel model = new BasicStatsModel();
+      model.addNumber(null);
+
+    } 
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxFailEmptyList() {
+      //when numbers array is empty
+      double[] nums = {};
+      double max = BasicStats.max(nums);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMaxFailNullValue() {
+      //when numbers array is null
+      double[] nums = null;
+      double max = BasicStats.max(nums); 
+    }
+
+    @Test
+    public void testReset() {
+
+      //testing values after reset
+      BasicStatsGUI gui = new BasicStatsGUI();
+      BasicStatsModel model = gui.getModel();
+      gui.setNumber("2");
+      JButton addButton = gui.getAddButton();
+      addButton.doClick();
+
+      JButton resetButton = gui.getResetButton();
+      resetButton.doClick();
+
+      MeanView meanView= gui.getMeanView();
+      MedianView medianView= gui.getMedianView();
+      MaxView maxView= gui.getMaxView();
+      CountView countView= gui.getCountView();
+      NumbersView numbersView= gui.getNumbersView();
+      JTextField inputNumber = gui.getNumberTextField();
+
+      assertEquals("",meanView.getComponent().getText());
+      assertEquals("",medianView.getComponent().getText());
+      assertEquals("",maxView.getComponent().getText());
+      assertEquals("",countView.getComponent().getText());
+      assertEquals("",numbersView.getComponent().getText());
+
+
+      //Testing reset bug
+      assertEquals("",inputNumber.getText());
+    }
 
     @Test
     public void testCentralTendency() {
@@ -69,4 +240,24 @@ public class BasicStatsTest {
       mode   = BasicStats.mode(numbers5);
       assertEquals (0, mode, EPS);
     }
+
+    @Test
+    public void testMax() {
+      //Max should be 9
+      double[] numbers = {1, 4, 9, 8};
+      double max   = BasicStats.max(numbers);
+      assertEquals (9, max, EPS);
+
+      //Max should be -1
+      double[] numbers2 = {-123, -45, 1};
+      max   = BasicStats.max(numbers2);
+      assertEquals (123, max, EPS);
+
+      //Max should be 4
+      double[] numbers3 = {4};
+      max   = BasicStats.max(numbers3);
+      assertEquals (4, max, EPS);
+    }
+
+
 }

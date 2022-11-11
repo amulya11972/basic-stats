@@ -36,6 +36,7 @@ public class BasicStatsGUI implements View
     private JFrame jfMain = new JFrame(APP_TITLE);
 	JTextField jtfNumber = new JTextField(5);
 	JButton jbAdd = new JButton("Add number");
+	JButton jbReset = new JButton("Reset");
 
 
     public BasicStatsGUI() {	
@@ -46,6 +47,7 @@ public class BasicStatsGUI implements View
 	
 	// Panel that shows stats about the numbers
 	JPanel jpStats = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
 
 	jpStats.add(countComponent.getComponentLabel());
 	jpStats.add(countComponent.getComponent());
@@ -62,7 +64,7 @@ public class BasicStatsGUI implements View
 	
 
 	// Panel with a text field/button to enter numbers and a button to reset the application
-	JButton jbReset = new JButton("Reset");
+	
 	jbReset.addActionListener(new ActionListener() {
 		// The interface ActionListener defines a call-back method actionPerformed,
 		// which is invoked if the user interacts with the GUI component -- in this
@@ -126,4 +128,48 @@ public class BasicStatsGUI implements View
 	jfMain.setVisible(true);
     }
     
+	public BasicStatsModel getModel(){
+		return model;
+	}
+
+	public String getNumber(){
+		return jtfNumber.getText();
+	}
+
+	public void setNumber(String num){
+		jtfNumber.setText("" + num);
+	}
+
+	public JButton getAddButton(){
+		return jbAdd;
+	}
+
+	public JButton getResetButton(){
+		return jbReset;
+	}
+
+	public MeanView getMeanView(){
+		return meanComponent;
+	}
+
+	public MedianView getMedianView(){
+		return medianComponent;
+	}
+
+	public MaxView getMaxView(){
+		return maxComponent;
+	
+	}
+	public CountView getCountView(){
+		return countComponent;
+	}
+
+	public NumbersView getNumbersView(){
+		return numbersComponent;
+	}
+
+	public JTextField getNumberTextField(){
+		return jtfNumber;
+	}
+
 }
