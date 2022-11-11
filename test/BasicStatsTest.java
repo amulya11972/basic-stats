@@ -1,5 +1,5 @@
 
-package gui;
+
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -251,7 +251,7 @@ public class BasicStatsTest {
       //Max should be -1
       double[] numbers2 = {-123, -45, 1};
       max   = BasicStats.max(numbers2);
-      assertEquals (123, max, EPS);
+      assertEquals (1, max, EPS);
 
       //Max should be 4
       double[] numbers3 = {4};
