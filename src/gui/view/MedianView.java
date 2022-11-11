@@ -10,24 +10,29 @@ public class MedianView implements View {
         private JTextField jtfMedian;
         private JLabel jlMedian;
 
+        //Inititialize the Median Component
         public MedianView(){
             jtfMedian = new JTextField(5);
             jtfMedian.setEditable(false);
             jlMedian = new JLabel("Median");
         }
 
+        //get Median Label
         public JLabel getComponentLabel(){
             return jlMedian;
         }
 
+        //get Median Component
         public  JTextField getComponent(){
             return jtfMedian;
         }
 
+        //reset median component
         public void resetComponent(){
             jtfMedian.setText("");
         }
 
+        //get Median Value
         public void getValue(){
             jtfMedian.getText();
         }

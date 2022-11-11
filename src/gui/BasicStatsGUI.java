@@ -26,8 +26,8 @@ import gui.view.View;
 public class BasicStatsGUI implements View
 {
     public static final String APP_TITLE = "Simple stats";
-
     private static BasicStatsModel model = new BasicStatsModel();
+	//Initializing all View Components
 	MeanView meanComponent = new MeanView();
 	MedianView medianComponent = new MedianView();
 	CountView countComponent = new CountView();
@@ -97,6 +97,7 @@ public class BasicStatsGUI implements View
 
     public void update(BasicStatsModel model) {
 	if (model.getArrayDouble().length == 0) {
+		//Resetting all components
 		jtfNumber.setText("");
 		numbersComponent.resetComponent();
 		countComponent.resetComponent();
@@ -128,46 +129,57 @@ public class BasicStatsGUI implements View
 	jfMain.setVisible(true);
     }
     
+	//get BasicStatsModel
 	public BasicStatsModel getModel(){
 		return model;
 	}
 
+	//get Input Number
 	public String getNumber(){
 		return jtfNumber.getText();
 	}
 
+	//set input number
 	public void setNumber(String num){
 		jtfNumber.setText("" + num);
 	}
 
+	//get add button
 	public JButton getAddButton(){
 		return jbAdd;
 	}
 
+	//get reset button
 	public JButton getResetButton(){
 		return jbReset;
 	}
 
+	//get mean view
 	public MeanView getMeanView(){
 		return meanComponent;
 	}
 
+	//get median view
 	public MedianView getMedianView(){
 		return medianComponent;
 	}
 
+	//get max view
 	public MaxView getMaxView(){
 		return maxComponent;
 	
+	//get count view
 	}
 	public CountView getCountView(){
 		return countComponent;
 	}
 
+	//get numbers view
 	public NumbersView getNumbersView(){
 		return numbersComponent;
 	}
 
+	//get input number textfield
 	public JTextField getNumberTextField(){
 		return jtfNumber;
 	}
